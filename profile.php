@@ -240,6 +240,8 @@ if ($action == 'change_pass')
 
 			if (($user['password'] == $old_password_hash) || $forum_user['is_admmod'])
 				$authorized = true;
+		} else {
+			$authorized = true;
 		}
 
 		if (!$authorized)
@@ -1394,7 +1396,7 @@ if ($forum_user['id'] != $id &&
 
 	$forum_page['user_ident']['username'] = '<li class="username'.(($user['realname'] =='') ? ' fn nickname' : ' nickname').'"><strong>'.forum_htmlencode($user['username']).'</strong></li>';
 
-	if ($forum_config['o_avatars'] == '1')
+	if (TRUE)
 	{
 		$forum_page['avatar_markup'] = generate_avatar_markup($id, $user['avatar'], $user['avatar_width'], $user['avatar_height'], $user['username'], TRUE);
 
@@ -1422,11 +1424,6 @@ if ($forum_user['id'] != $id &&
 	// Setup user address
 	$forum_page['user_contact'] = array();
 
-	if ($user['email_setting'] == '0' && !$forum_user['is_guest'] && $forum_user['g_send_email'] == '1')
-		$forum_page['user_contact']['email'] = '<li><span>'.$lang_profile['E-mail'].': <a href="mailto:'.forum_htmlencode($user['email']).'" class="email">'.forum_htmlencode(($forum_config['o_censoring'] == '1' ? censor_words($user['email']) : $user['email'])).'</a></span></li>';
-
-	if ($user['email_setting'] != '2' && !$forum_user['is_guest'] && $forum_user['g_send_email'] == '1')
-		$forum_page['user_contact']['forum-mail'] = '<li><span>'.$lang_profile['E-mail'].': <a href="'.forum_link($forum_url['email'], $id).'">'.$lang_profile['Send forum e-mail'].'</a></span></li>';
 
 	if ($user['url'] != '')
 	{
@@ -1624,7 +1621,7 @@ else
 	// Setup navigation menu
 	$forum_page['main_menu'] = array();
 	$forum_page['main_menu']['about'] = '<li class="first-item'.(($section == 'about') ? ' active' : '').'"><a href="'.forum_link($forum_url['profile_about'], $id).'"><span>'.$lang_profile['Section about'].'</span></a></li>';
-	$forum_page['main_menu']['identity'] = '<li'.(($section == 'identity') ? ' class="active"' : '').'><a href="'.forum_link($forum_url['profile_identity'], $id).'"><span>'.$lang_profile['Section identity'].'</span></a></li>';
+	$forum_page['main_menu']['identity'] = ''; // '<li'.(($section == 'identity') ? ' class="active"' : '').'><a href="'.forum_link($forum_url['profile_identity'], $id).'"><span>'.$lang_profile['Section identity'].'</span></a></li>';
 	$forum_page['main_menu']['settings'] = '<li'.(($section == 'settings') ? ' class="active"' : '').'><a href="'.forum_link($forum_url['profile_settings'], $id).'"><span>'.$lang_profile['Section settings'].'</span></a></li>';
 
 	if ($forum_config['o_signatures'] == '1')
@@ -1655,7 +1652,7 @@ else
 
 		$forum_page['user_ident']['username'] = '<li class="username'.(($user['realname'] =='') ? ' fn nickname' : ' nickname').'"><strong>'.forum_htmlencode($user['username']).'</strong></li>';
 
-		if ($forum_config['o_avatars'] == '1')
+		if (TRUE)
 		{
 			$forum_page['avatar_markup'] = generate_avatar_markup($id, $user['avatar'], $user['avatar_width'], $user['avatar_height'], $user['username'], TRUE);
 
@@ -1862,28 +1859,8 @@ else
 					</ul>
 				</div>
 			</div>
-<?php ($hook = get_hook('pf_change_details_about_pre_user_contact_info')) ? eval($hook) : null; ?>
-<?php if (!empty($forum_page['user_contact'])): ?>
-			<div class="ct-set data-set set<?php echo ++$forum_page['item_count'] ?>">
-				<div class="ct-box data-box">
-					<h4 class="ct-legend hn"><span><?php echo $lang_profile['Contact info'] ?></span></h4>
-					<ul class="data-box">
-						<?php echo implode("\n\t\t\t\t\t\t", $forum_page['user_contact'])."\n" ?>
-					</ul>
-				</div>
-			</div>
-<?php ($hook = get_hook('pf_change_details_about_pre_user_activity_info')) ? eval($hook) : null; ?>
-<?php endif; if (!empty($forum_page['user_activity'])): ?>
-			<div class="ct-set data-set set<?php echo ++$forum_page['item_count'] ?>">
-				<div class="ct-box data-box">
-					<h4 class="ct-legend hn"><span><?php echo $lang_profile['Posts and topics'] ?></span></h4>
-					<ul class="data-box">
-						<?php echo implode("\n\t\t\t\t\t\t", $forum_page['user_activity']) ?>
-					</ul>
-				</div>
-			</div>
 <?php ($hook = get_hook('pf_change_details_about_pre_user_sig_info')) ? eval($hook) : null; ?>
-<?php endif; if (isset($forum_page['sig_demo'])): ?>
+<?php if (isset($forum_page['sig_demo'])): ?>
 			<div class="ct-set data-set set<?php echo ++$forum_page['item_count'] ?>">
 				<div class="ct-box data-box">
 					<h4 class="ct-legend hn"><span><?php echo $lang_profile['Current signature'] ?></span></h4>
@@ -1917,7 +1894,7 @@ else
 		require FORUM_ROOT.'footer.php';
 	}
 
-	else if ($section == 'identity')
+	else if (false)
 	{
 		// Setup breadcrumbs
 		$forum_page['crumbs'] = array(

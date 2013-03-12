@@ -361,7 +361,7 @@ if (!empty($posts_id))
 			// Generate author identification
 			if ($cur_post['poster_id'] > 1)
 			{
-				if ($forum_config['o_avatars'] == '1' && $forum_user['show_avatars'] != '0')
+				if ($forum_user['show_avatars'] != '0')
 				{
 					$forum_page['avatar_markup'] = generate_avatar_markup($cur_post['poster_id'], $cur_post['avatar'], $cur_post['avatar_width'], $cur_post['avatar_height'], $cur_post['username']);
 
@@ -372,10 +372,6 @@ if (!empty($posts_id))
 				$forum_page['author_ident']['username'] = '<li class="username">'.(($forum_user['g_view_users'] == '1') ? '<a title="'.sprintf($lang_topic['Go to profile'], forum_htmlencode($cur_post['username'])).'" href="'.forum_link($forum_url['user'], $cur_post['poster_id']).'">'.forum_htmlencode($cur_post['username']).'</a>' : '<strong>'.forum_htmlencode($cur_post['username']).'</strong>').'</li>';
 				$forum_page['author_ident']['usertitle'] = '<li class="usertitle"><span>'.get_title($cur_post).'</span></li>';
 
-				if ($cur_post['is_online'] == $cur_post['poster_id'])
-					$forum_page['author_ident']['status'] = '<li class="userstatus"><span>'.$lang_topic['Online'].'</span></li>';
-				else
-					$forum_page['author_ident']['status'] = '<li class="userstatus"><span>'.$lang_topic['Offline'].'</span></li>';
 			}
 			else
 			{
